@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+<RelativeLayout
+
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ecf0f1"
+    android:orientation="vertical"
+    tools:context=".app.view.activity.LookUpActivity">
+    <include
+        android:id="@+id/custom_toolbar"
+        layout="@layout/my_toolbar"
+
+        />
+    <androidx.appcompat.widget.SearchView
+        android:id="@+id/search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/custom_toolbar"
+        app:queryHint="Nhập câu hỏi cần tìm..."
+        android:background="@color/white"
+        app:iconifiedByDefault="false"
+        />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/lookUpRcv"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ecf0f1"
+        android:padding="10dp"
+        android:layout_below="@id/search_text"
+        />
+
+</RelativeLayout>
+</layout>

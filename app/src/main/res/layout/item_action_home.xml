@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/linearItem"
+        android:layout_margin="20dp"
+
+    >
+        <ImageView
+            android:background="@drawable/border_item_1"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:scaleType="fitCenter"
+            android:id="@+id/actionImg"
+            android:src="@drawable/book"
+            />
+
+        <TextView
+            android:id="@+id/actionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/ptsansnarrowbold"
+            android:gravity="center"
+            tools:text="title"
+            android:textAllCaps="true"
+            android:textSize="16dp"
+            android:textStyle="bold"/>
+
+    </LinearLayout>
