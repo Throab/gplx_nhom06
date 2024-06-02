@@ -5,22 +5,22 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 import android.widget.TextView
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.gplx_nhom6.R
 import com.example.gplx_nhom6.app.model.Answer
 import com.example.gplx_nhom6.app.model.Question
 import com.example.gplx_nhom6.app.view.activity.LessonViewPagerActivity
 import com.example.gplx_nhom6.app.viewmodel.DataViewModel
+import com.squareup.picasso.Picasso
 
 class ViewPagerAdapter(private val getActivity: LessonViewPagerActivity, private var questionList : List<Question> ):
     RecyclerView.Adapter<ViewPagerAdapter.PageViewHolder>()
@@ -50,6 +50,15 @@ class ViewPagerAdapter(private val getActivity: LessonViewPagerActivity, private
     override fun onBindViewHolder(holder: PageViewHolder, position: Int) {
 
         holder.content.text = questionList[position].content
+
+        if(questionList[position].image != "NULL"){
+            holder.image.visibility = View.VISIBLE
+            val url = "http://192.168.1.20/Nhom6_Api/image/" + questionList[position].image
+            Picasso.get().load(url).into(holder.image)
+            Log.d("NULLAAAA", questionList[position].image?.length.toString())
+        }else{
+            holder.image.visibility = View.GONE
+        }
         holder.showEx.setOnClickListener{
             holder.layoutEx.visibility = View.VISIBLE
             holder.layoutExa.visibility = View.VISIBLE
@@ -71,12 +80,14 @@ class ViewPagerAdapter(private val getActivity: LessonViewPagerActivity, private
                             holder.exAnswer.text = i.answerExplain
                             holder.exAnswer.setTextColor(Color.parseColor("#FFFFFF"))
                         }
+
                     }
                 }
                 aAdapter.notifyDataSetChanged()
             }
         })
         viewModel.makeApiCallAnswer()
+
     }
 
 

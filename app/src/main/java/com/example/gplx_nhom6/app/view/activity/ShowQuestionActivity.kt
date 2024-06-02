@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import androidx.appcompat.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,15 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gplx_nhom6.R
 import com.example.gplx_nhom6.app.model.Answer
+import com.example.gplx_nhom6.app.model.Question
 import com.example.gplx_nhom6.app.view.adapter.AnswerAdapter
 import com.example.gplx_nhom6.app.viewmodel.DataViewModel
 import com.example.gplx_nhom6.databinding.ActivityShowQuestionBinding
+import com.squareup.picasso.Picasso
 
 class ShowQuestionActivity : AppCompatActivity() {
     private lateinit var binding: ActivityShowQuestionBinding
     private lateinit var recyclerView : RecyclerView
     private lateinit var aAdapter : AnswerAdapter
     private var answerList = mutableListOf<Answer>()
+    private var questionList = mutableListOf<Question>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_show_question)
@@ -29,14 +31,31 @@ class ShowQuestionActivity : AppCompatActivity() {
         binding.textQuestionContent.text = intent.getStringExtra("question_content")
         setupToolBar()
         initListener()
-        val string = intent.getStringExtra("question_content")
-        val isd = intent.getStringExtra("question_id")
         answerList = ArrayList()
         recyclerView = findViewById<View>(R.id.rcv_answers) as RecyclerView
         aAdapter = AnswerAdapter(this, answerList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = aAdapter
         initViewModel()
+        initUI()
+    }
+    fun initUI(){
+        var id = intent.getStringExtra("question_id")?.toInt() ?: null
+        val viewModel : DataViewModel = ViewModelProvider(this).get(DataViewModel::class.java)
+    viewModel.getQuestionLiveDataObserver().observe(this, Observer{
+            if(it != null){
+                for(i : Question in it){
+                    if(i.questionId == id){
+                        if(i.image != "NULL"){
+                            binding.imageQuestion.visibility = View.VISIBLE
+                            val url = "http://192.168.1.20/Nhom6_Api/image/" + i.image
+                            Picasso.get().load(url).into(binding.imageQuestion)
+                        }
+                    }
+                }
+            }
+        })
+        viewModel.makeApiCallQuestion()
     }
     fun setupToolBar(){
         binding.customToolbar.toolbarTitle.text = ""
@@ -54,6 +73,7 @@ class ShowQuestionActivity : AppCompatActivity() {
         }
     }
     private fun initViewModel(){
+
         val viewModel : DataViewModel = ViewModelProvider(this).get(DataViewModel::class.java)
         viewModel.getAnswerLiveDataObserver().observe(this, Observer{
             if(it != null){
@@ -71,7 +91,6 @@ class ShowQuestionActivity : AppCompatActivity() {
             }
         })
         viewModel.makeApiCallAnswer()
-
     }
 
 }

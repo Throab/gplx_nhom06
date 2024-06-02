@@ -5,7 +5,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object RetrofitClient {
     fun getRetrofitClient(): ApiInterface {
-        return Retrofit.Builder().baseUrl("http://192.168.1.24/Nhom6_Api/")
+        return Retrofit.Builder().baseUrl("http://192.168.1.20/Nhom6_Api/")
             .addConverterFactory(GsonConverterFactory.create()).build()
             .create(ApiInterface::class.java)
     }

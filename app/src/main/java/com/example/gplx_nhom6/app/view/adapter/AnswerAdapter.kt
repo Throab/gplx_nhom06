@@ -11,10 +11,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gplx_nhom6.R
 import com.example.gplx_nhom6.app.model.Answer
+import com.example.gplx_nhom6.app.view.QuestionFragment
 import com.example.gplx_nhom6.app.view.activity.ShowQuestionActivity
 import kotlinx.android.synthetic.main.item_answer.view.*
 
-class AnswerAdapter constructor(private val context :Context, private var answerList: List<Answer> ):
+class AnswerAdapter(private val context: Context, private var answerList: List<Answer> ):
     RecyclerView.Adapter<AnswerAdapter.MyViewHolder>()
 {
 

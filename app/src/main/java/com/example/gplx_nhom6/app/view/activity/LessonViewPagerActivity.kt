@@ -64,7 +64,15 @@ class LessonViewPagerActivity : AppCompatActivity() {
         binding.customToolbar.toolbarLeftIcon.setOnClickListener{
             super.onBackPressed()
         }
+        binding.btnBackQuestion.setOnClickListener{
+                viewPager.setCurrentItem(viewPager.currentItem -1 , true)
+        }
+        binding.btnForwardQuestion.setOnClickListener{
+            viewPager.setCurrentItem(viewPager.currentItem + 1 , true)
+        }
     }
+
+
 
     private fun initUi(){
         viewPager = findViewById<ViewPager2>(R.id.viewPager)

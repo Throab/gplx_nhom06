@@ -5,7 +5,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
 import com.example.gplx_nhom6.R
+import com.example.gplx_nhom6.app.model.Answer
+import com.example.gplx_nhom6.app.view.adapter.AnswerAdapter
+import com.example.gplx_nhom6.databinding.FragmentQuestionBinding
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -18,16 +22,21 @@ private const val ARG_PARAM2 = "param2"
  * create an instance of this fragment.
  */
 class QuestionFragment : Fragment() {
+    var answerList = mutableListOf<Answer>()
+    lateinit var aAdapter : AnswerAdapter
+    lateinit var recyclerView: RecyclerView
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-
+    private lateinit var binding: FragmentQuestionBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
             param1 = it.getString(ARG_PARAM1)
             param2 = it.getString(ARG_PARAM2)
         }
+        binding = FragmentQuestionBinding.inflate(layoutInflater)
+        recyclerView = binding.rcvAnswers
     }
 
     override fun onCreateView(
